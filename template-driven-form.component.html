@@ -1,0 +1,122 @@
+<form #eventForm="ngForm" (ngSubmit)="register()" passwordValidator>
+    <div class="form-group">
+        <div class="form row justify-content-around">
+            <div class="form-group col-md-12">
+                <h3 style="text-align: center; margin: 2rem 0 2rem 0;">Template_Driven_Form</h3>
+                <hr>
+            </div>
+            <div class="form-group col-md-6">
+                <label>First Name</label>
+                <input type="text" class="form-control" id="inputEmail4" placeholder="First Name" name="firstName"
+                    required [(ngModel)]="participant.firstName" #firstName="ngModel">
+                <div *ngIf="firstName.invalid && (firstName?.dirty || firstName?.touched)" class="alert alert-danger">
+                    firstName is required
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Last Name</label>
+                <input type="text" class="form-control" id="inputEmail4" placeholder="Last Name" name="lastName"
+                    required [(ngModel)]="participant.lastName" #lastName="ngModel">
+                <div *ngIf="lastName.invalid && (lastName?.dirty || lastName?.touched)" class="alert alert-danger">
+                    Last Name is required.
+                </div>
+            </div>
+
+            <div class="from-group col-md-6">
+                <label style="padding-right: 1rem;">Gender : </label>
+                <input type="radio" name="gender" value="male" required [(ngModel)]="participant.gender"> Male
+                <input type="radio" name="gender" value="female" required [(ngModel)]="participant.gender">
+                Female
+            </div>
+
+            <div class="from-group col-md-6">
+                <label style="margin-right: 0.5em;">Dob :</label>
+                <input type="date" name="dob" [(ngModel)]="participant.dob" #dob="ngModel" required pastDate />
+                <div *ngIf="dob.invalid && (dob.touched || dob.dirty)" class="alert alert-danger">
+                    enter past date only
+                </div>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>Email</label>
+                <input type="text" class="form-control" id="inputEmail4" name="email" placeholder="Email" required
+                    [(ngModel)]="participant.email" #email="ngModel">
+                <div *ngIf="email.invalid && (email.dirty ||email.touched)" class="alert alert-danger">
+                    Email is required.
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Password</label>
+                <input type="password" class="form-control" placeholder="Password" name="password" required
+                    [(ngModel)]="participant.password" #password="ngModel">
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                    Password is required.
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Confirm Password</label>
+                <input type="password" class="form-control" placeholder="confirm password"
+                    [(ngModel)]="participant.confirmPassword" name="confirmPassword" #confirmPassword="ngModel"
+                    required>
+                <div *ngIf="!confirmPassword?.valid && (confirmPassword?.dirty || confirmPassword?.touched)"
+                    class="alert alert-danger">
+                    confirmPassword is required
+                </div>
+                <div *ngIf="eventForm.errors?.passwordValidator && (confirmPassword.dirty || confirmPassword.touched)"
+                    class="alert alert-danger">
+                    confirm Password should match the password
+                </div>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>Address</label>
+                <textarea type="text" class="form-control" id="inputAddress" rows="3"
+                    placeholder="Door_No, Stree, City." name="address" required [(ngModel)]="participant.address"
+                    #address="ngModel"></textarea>
+                <div *ngIf="address.invalid && (address.dirty ||address.touched)" class="alert alert-danger">
+                    address is required.
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>State</label>
+                <select id="type" class="form-control" [(ngModel)]="participant.state" required>
+                    <option *ngFor="let e of state" [value]="e">{{e}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Zip</label>
+                <input type="text" class="form-control" id="inputZip" required [(ngModel)]="participant.zip" name="zip"
+                    #zip="ngModel">
+                <div *ngIf="zip.invalid && (zip.dirty ||zip.touched)" class="alert alert-danger">
+                    Zip is required.
+                </div>
+            </div>
+
+            <div class="form-group col-md-12" style="padding-left: 3rem;">
+                <div>
+                    <input class="form-check-input" type="checkbox" id="gridCheck" name="check" required
+                        [(ngModel)]="participant.check" #check="ngModel">
+
+                    <label class="form-check-label" for="gridCheck">
+                        terms and conditions
+                    </label>
+
+                    <div *ngIf="!check?.valid && (check?.dirty || check?.touched)" class="alert alert-danger">
+                        you must accept terms and conditions.
+                    </div>
+
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-bottom: 2rem;"
+                [disabled]="eventForm.invalid">Submit</button>
+            <button type="reset" class="btn btn-danger" style="margin-bottom: 2rem;">Reset</button>
+        </div>
+
+    </div>
+</form>
